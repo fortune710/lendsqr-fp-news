@@ -1,8 +1,15 @@
 import { View } from "react-native"
+import Page from "../components/Page";
+import { Input } from "@rneui/themed";
 
 const SignUp = () => {
     return (
-        <View></View>
+        <Page>
+            <View>
+                <Input label="Email"/>
+
+            </View>
+        </Page>
     )
 }
 
