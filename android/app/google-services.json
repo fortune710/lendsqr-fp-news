@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "394802504165",
+    "project_id": "lendsqr-fp-news1",
+    "storage_bucket": "lendsqr-fp-news1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394802504165:android:f8444cede8216935bf4f0c",
+        "android_client_info": {
+          "package_name": "com.lendsqr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394802504165-pdja8oh5th7u8etftvsih9hs2cpksa48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRXD6M2OjH6BT1Ivwa8ngk74UfqyT1hJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394802504165-pdja8oh5th7u8etftvsih9hs2cpksa48.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "394802504165-um4dntbos0shoq07rpuk1h6c16ssa6ho.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lendsqr"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
