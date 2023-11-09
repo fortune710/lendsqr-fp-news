@@ -7,7 +7,11 @@ interface Config {
 }
 
 const http = axios.create({
-    baseURL: "",
+    baseURL: "https://newsapi.org/v2",
+    params: {
+        country: 'us',
+        apiKey: '5a6e9a604d184c3dbab3d7a9e9a4d3be'
+    },
 })
 
 http.interceptors.request.use(async (config: any) => {
