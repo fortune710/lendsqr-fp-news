@@ -15,12 +15,21 @@ const useAuth = () => {
         GoogleSignin.configure({
             webClientId: "394802504165-pdja8oh5th7u8etftvsih9hs2cpksa48.apps.googleusercontent.com",
         })
-        const user = await GoogleSignin.signIn();
-        crashlytics.log(`User with ID ${user.user.email} signed in with Google`);
+        await GoogleSignin.hasPlayServices();
+        const { idToken } = await GoogleSignin.signIn();
+
+        const credential = auth.GoogleAuthProvider.credential(idToken);
+        const { user } = await auth().signInWithCredential(credential);
+        crashlytics.log(`User with ID ${user.email} signed in with Google`);
+        return user
     }
+    
+  
     return {
         auth: auth(),
         googleSignIn,
         emailAndPasswordSignUp
     }
 }
+
+export default useAuth;
