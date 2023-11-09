@@ -8,7 +8,9 @@ interface PageProps {
 const Page: React.FC<PageProps> = ({ children }) => {
     return (
         <SafeAreaView>
-            <ScrollView>
+            <ScrollView
+                contentContainerStyle={{ paddingHorizontal: 12 }}
+            >
                 { children }
             </ScrollView>
         </SafeAreaView>
