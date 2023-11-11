@@ -28,77 +28,39 @@ import StackNavigator from './navigation/StackNavigator';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import store from './store';
+import ErrorBoundary from 'react-native-error-boundary';
+import useCrashlytics from './hooks/useCrashlytics';
 
 
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const crashlytics = useCrashlytics()
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const reportError = (error: Error, stackTrace: string) => {
+    crashlytics.log("An error occured")
+    crashlytics.recordError(error, stackTrace)
+  }
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <StackNavigator/>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-      </Provider>
-      {
-        /*
-        
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <Header />
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Step One">
-              Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title="See Your Changes">
-              <ReloadInstructions />
-            </Section>
-            <Section title="Debug">
-              <DebugInstructions />
-            </Section>
-            <Section title="Learn More">
-              Read the docs to discover what to do next: Hello my name is Fortune
-            </Section>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-        
-        */
-      }
-    </QueryClientProvider>
+    <ErrorBoundary onError={reportError}>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <StackNavigator/>
+          <StatusBar
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={backgroundStyle.backgroundColor}
+          />
+        </Provider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
