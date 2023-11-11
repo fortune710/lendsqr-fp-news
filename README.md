@@ -4,6 +4,19 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
+## Folder Structure
+├── tests # Unit tests 
+├── android # Android native code 
+├── ios # iOS native code 
+├── node_modules # Dependencies 
+├── src # Source code 
+├── components # Reusable components │ 
+├── screens # Screen components │ 
+├── services # API calls and other services │ 
+└── utils # Utility functions and constants 
+├── .gitignore # List of files and folders not tracked by Git ├── .eslintrc.js # ESLint rule definitions 
+├── .prettierrc.js # Prettier configuration ├── babel.config.js # Babel configuration ├── index.js # Entry point of the application ├── package.json # Project metadata and dependencies └── README.md # This file
+
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
