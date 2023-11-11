@@ -20,7 +20,8 @@ const useAuth = () => {
 
         const credential = auth.GoogleAuthProvider.credential(idToken);
         const { user } = await auth().signInWithCredential(credential);
-        crashlytics.log(`User with ID ${user.email} signed in with Google`);
+        crashlytics.setUserId(user.uid)
+        crashlytics.log(`User with Email ${user.email} signed in with Google`);
         return user
     }
     
