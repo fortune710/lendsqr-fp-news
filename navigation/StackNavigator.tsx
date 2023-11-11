@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View } from "react-native";
 
 import NewsFeed from "../pages/NewsFeed";
 import Login from "../pages/Login";
@@ -12,7 +11,7 @@ import useAuth from "../hooks/useAuth";
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-    const { auth: { currentUser, onAuthStateChanged } } = useAuth();
+    const { auth: { currentUser } } = useAuth();
 
     return (
         <NavigationContainer>
