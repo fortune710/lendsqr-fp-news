@@ -1,8 +1,8 @@
-import { ActivityIndicator, Alert, Dimensions, FlatList, Pressable, ScrollView, View } from "react-native";
+import { ActivityIndicator, Alert, Dimensions, FlatList, Pressable, RefreshControl, ScrollView, View } from "react-native";
 import Page from "../components/Page";
 import React, { useEffect, useState } from "react";
 import http from "../http";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Image } from "react-native";
 import { StyleSheet } from "react-native";
 import useAuth from "../hooks/useAuth";
@@ -14,6 +14,7 @@ import useRedirect from "../hooks/useRedirect";
 import NewsCard from "../components/NewsCard";
 import NewsCardSkeleton from "../components/NewsCardSkeleton";
 import ListHeader from "../components/ListHeader";
+import useRemoteConfig from "../hooks/useRemoteConfig";
 
 type Category = "sports"|"technology"|"all"|"business"|"general"|"health"|"entertainment";
 
@@ -54,11 +55,26 @@ const categories: CategoryItem[] = [
 ]
 const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
     const [activeCategory, setCategory] = useState<Category>("all");
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+
+    const { getValueFromConfig } = useRemoteConfig();
+    const showRuntimeErrorButton = getValueFromConfig("show_runtime_error_button", "boolean") as boolean;
 
     useEffect(() => {
         useRedirect(navigation);
-    }, [])
+    }, []);
+
+    const refresh = () => {
+        setRefreshing(true);
+        queryClient.invalidateQueries({ queryKey: ["news-listing"] });
+        setRefreshing(false);
+    }
+
+    const createError = () => {
+        throw new Error("This is a runtime error")
+    }
 
     const { isLoading, data: news } = useQuery({
         queryKey: ["news-listing", activeCategory],
@@ -79,12 +95,26 @@ const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
 
 
     const loadingArray = new Array(4);
+
         
     return (
         <FlatList
             style={styles.list}
+            refreshControl={
+                <RefreshControl 
+                    refreshing={refreshing}
+                    onRefresh={refresh}
+                />
+            }
+            refreshing={refreshing}
             ListHeaderComponent={
                 <View>
+                    {
+                        !showRuntimeErrorButton ? null :
+                        <Button onPress={createError} titleStyle={{ fontSize: 10 }} buttonStyle={styles.errorBtn}>
+                            Create Runtime Error
+                        </Button>
+                    }
                     <ListHeader/>
                     <ScrollView 
                         contentContainerStyle={{ paddingLeft: 12 }}
@@ -99,6 +129,7 @@ const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
                                     titleStyle={{ fontFamily: "EncodeSans-Medium" }}
                                     type={activeCategory === category.value ? "solid" : "outline"}
                                     onPress={() => setCategory(category.value)}
+                                    key={category.name}
                                 >
                                     {category.name}
                                 </Chip>
@@ -108,10 +139,11 @@ const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
                 </View>
             }
             data={isLoading ? loadingArray : news!}
-            renderItem={({ item: news }) => {
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item: news, index }) => {
                 if(isLoading) {
                     return (
-                        <NewsCardSkeleton/>
+                        <NewsCardSkeleton key={index.toString()} />
                     )
                 }
 
@@ -120,7 +152,7 @@ const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
                         onPress={() => navigation.navigate("News-Details", { title: news.title })} 
                         style={styles.newsCardContainer}
                     >
-                        <NewsCard news={news}/>
+                        <NewsCard key={news.title} news={news}/>
                     </Pressable>
                 )
             }}
@@ -129,6 +161,11 @@ const NewsFeed: React.FC<ScreenProps> = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+    errorBtn: {
+        width: "100%",
+        height: 25,
+        padding: 0
+    },
     newsImage: {
         borderRadius: 12,
     },
