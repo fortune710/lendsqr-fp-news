@@ -1,9 +1,9 @@
-import { Image, Pressable, StyleSheet, View } from "react-native"
+import { Alert, Image, Linking, Pressable, StyleSheet, View } from "react-native"
 import Page from "../components/Page";
 import { useSelector } from "react-redux";
 import { selectNewsByTitle } from "../store";
 import { NewsItem, ScreenProps } from "../types";
-import { Avatar, Icon, Text } from "@rneui/themed";
+import { Avatar, Button, Icon, Text } from "@rneui/themed";
 import useCrashlytics from "../hooks/useCrashlytics";
 import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
@@ -20,7 +20,18 @@ const NewsDetails: React.FC<ScreenProps> = ({ route, navigation }) => {
 
     const relativeDate = formatDistanceToNow(parseISO(newsDetails?.publishedAt), { addSuffix: true })
     const defaultAvatar = `https://api.dicebear.com/7.x/shapes/png?seed=${newsDetails.source.name}`
+    const defaultImage = "https://api.dicebear.com/7.x/shapes/png?flip=false";
 
+    const openNewsUrl = async () => {
+        const canOpenUrl = await Linking.canOpenURL(newsDetails.url);
+        if(!canOpenUrl) return Alert.alert(
+            "Unable to Open URL",
+            "Opening of URLs not supported"
+        )
+
+        return await Linking.openURL(newsDetails.url)
+    }
+    
     useEffect(() => {
         if(!newsDetails) {
             crashlytics.log(`User ${currentUser?.email} checked out story but it wasn't found`)
@@ -44,10 +55,12 @@ const NewsDetails: React.FC<ScreenProps> = ({ route, navigation }) => {
                 onPress={() => navigation.goBack()}
                 style={styles.backButton}
             >
-                <Ionicons
-                    name="arrow-back"
-                    size={20}
+                <Icon
+                    name="arrow-back-ios"
                     color="#fff"
+                    type="material"
+                    testID="backButton"
+                    iconStyle={{ width: 15 }}
                 />
             </Pressable>
 
@@ -87,16 +100,30 @@ const NewsDetails: React.FC<ScreenProps> = ({ route, navigation }) => {
             </View>
 
             <Image
-                source={{ uri: newsDetails?.urlToImage }}
+                source={{ uri: newsDetails?.urlToImage || defaultImage }}
                 style={styles.newsImage}
                 height={200}
+                testID="newsImage"
             />
+
+            <Button 
+                buttonStyle={styles.openUrlButton}
+                onPress={openNewsUrl}
+                testID="openUrlButton"
+            >
+                Click here for the full story
+            </Button>
 
         </Page>
     )
 }
 
 const styles = StyleSheet.create({
+    openUrlButton: {
+        borderRadius: 12,
+        marginVertical: 15,
+        fontFamily: "EncodeSans-SemiBold"
+    },
     backButton: {
         borderRadius: 999,
         width: 50,
