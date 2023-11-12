@@ -10,14 +10,15 @@ interface NewsCardProps {
 const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
     
     const relativeDate = formatDistanceToNow(parseISO(news.publishedAt), { addSuffix: true })
-    
+    const defaultImage = "https://api.dicebear.com/7.x/shapes/png?flip=false";
+
     return (
         <View style={styles.newsListing}>
             <Image 
                 style={styles.newsImage} 
                 height={100} 
                 width={100} 
-                source={{ uri: news.urlToImage }} 
+                source={{ uri: news.urlToImage || defaultImage }} 
             />
             <View style={{ width: "100%", marginLeft: 7 }}>
                 <Text style={styles.title}>
