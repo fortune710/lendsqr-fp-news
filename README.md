@@ -34,17 +34,6 @@ This is an assesment for the Mobile Engineer Position at Lendsqr. A simple appli
 - Checked if the "Sign In with Google" button was rendered
 
 ## Folder Structure
-tests # Unit tests 
-├── android # Android native code 
-├── ios # iOS native code 
-├── node_modules # Dependencies 
-├── src # Source code 
-├── components # Reusable components │ 
-├── screens # Screen components │ 
-├── services # API calls and other services │ 
-└── utils # Utility functions and constants 
-├── .gitignore # List of files and folders not tracked by Git ├── .eslintrc.js # ESLint rule definitions 
-├── .prettierrc.js # Prettier configuration ├── babel.config.js # Babel configuration ├── index.js # Entry point of the application ├── package.json # Project metadata and dependencies └── README.md # This file
 
 - `Project Root`
   - `__tests__`
