@@ -19,7 +19,7 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
         <Page>
             <AuthForm type="login"/>
 
-            <Button onPress={signUpWithGoogle}>
+            <Button testID="googleSignInButton" onPress={signUpWithGoogle}>
                 Sign In with Google
             </Button>
 
