@@ -1,9 +1,11 @@
 import auth from "@react-native-firebase/auth"
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import useCrashlytics from "./useCrashlytics";
+import useAnalytics from "./useAnalytics";
 
 const useAuth = () => {
     const crashlytics = useCrashlytics();
+    const { analytics } = useAnalytics();
 
     const emailAndPasswordSignUp = async (email: string, password: string) => {
         const { user } = await auth().createUserWithEmailAndPassword(email, password);
@@ -21,15 +23,23 @@ const useAuth = () => {
         const credential = auth.GoogleAuthProvider.credential(idToken);
         const { user } = await auth().signInWithCredential(credential);
         crashlytics.setUserId(user.uid)
+        analytics.setUserId(user.uid)
         crashlytics.log(`User with Email ${user.email} signed in with Google`);
         return user
+    }
+
+    const signOut = async () => {
+        await auth().signOut()
+        crashlytics.setUserId("");
+        analytics.setUserId(null)
     }
     
   
     return {
         auth: auth(),
         googleSignIn,
-        emailAndPasswordSignUp
+        emailAndPasswordSignUp,
+        signOut
     }
 }
 
