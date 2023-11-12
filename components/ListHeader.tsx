@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { NavigationProp, ParamListBase, useNavigation } from "@react-navigation/native";
 
 const ListHeader: React.FC = () => {
-    const { auth } = useAuth();
+    const { auth, signOut } = useAuth();
     const navigation = useNavigation() as NavigationProp<ParamListBase>;
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -22,7 +22,7 @@ const ListHeader: React.FC = () => {
                 {
                     text: "Yes",
                     onPress: async () => {
-                        await auth.signOut()
+                        await signOut()
                         return navigation.navigate("Login")
                     }
                 }
@@ -34,7 +34,9 @@ const ListHeader: React.FC = () => {
     
     return (
         <View style={styles.header}>
-            <Text style={styles.title}>Hello {auth.currentUser?.displayName}</Text>
+            <Text testID="userGreeting" style={styles.title}>
+                Hello {auth.currentUser?.displayName}
+            </Text>
             
             <Avatar 
                 avatarStyle={{ borderRadius: 999, width: 50, height: 50 }}
