@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-firebase/analytics": "^18.6.1",
     "@react-native-firebase/app": "^18.6.1",
     "@react-native-firebase/auth": "^18.6.1",
     "@react-native-firebase/crashlytics": "^18.6.1",
@@ -23,10 +24,14 @@
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.8",
     "@tanstack/react-query": "^5.8.1",
+    "appcenter": "5.0.0",
+    "appcenter-analytics": "5.0.0",
+    "appcenter-crashes": "5.0.0",
     "axios": "^1.6.0",
     "date-fns": "^2.30.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
+    "react-native-code-push": "^8.1.0",
     "react-native-error-boundary": "^1.2.3",
     "react-native-safe-area-context": "^4.7.4",
     "react-native-screens": "^3.27.0",
@@ -35,10 +40,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-transform-private-methods": "^7.23.3",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
     "@react-native/eslint-config": "^0.72.2",
     "@react-native/metro-config": "^0.72.11",
+    "@testing-library/react-native": "^12.3.2",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.0.24",
     "@types/react-test-renderer": "^18.0.0",
@@ -52,5 +59,22 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx",
+      "node",
+      "json"
+    ],
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
   }
 }
