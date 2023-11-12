@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -30,37 +30,39 @@ import { Provider } from 'react-redux';
 import store from './store';
 import ErrorBoundary from 'react-native-error-boundary';
 import useCrashlytics from './hooks/useCrashlytics';
-
+import ErrorPage from './components/Error';
+import CodePush from 'react-native-code-push';
+import useRemoteConfig from './hooks/useRemoteConfig';
 
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  const crashlytics = useCrashlytics()
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const reportError = (error: Error, stackTrace: string) => {
-    crashlytics.log("An error occured")
-    crashlytics.recordError(error, stackTrace)
-  }
+  const { setDefaults } = useRemoteConfig();
+
+  useEffect(() => {
+    setDefaults()
+  }, [])
 
   return (
-    <ErrorBoundary onError={reportError}>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <StackNavigator/>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-        </Provider>
-      </QueryClientProvider>
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <StackNavigator/>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+      </Provider>
+    </QueryClientProvider>
   );
 }
 
+let codePushOptions = { checkFrequency: CodePush.CheckFrequency.MANUAL };
+export default CodePush(codePushOptions)(App);
 
-export default App;
+//export default App;
