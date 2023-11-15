@@ -9,14 +9,15 @@ interface InputProps extends React.ComponentProps<typeof TextInput> {
 const Input: React.FC<InputProps> = ({ style, label, ...props }) => {
     
     return (
-        <View style={{ width: "100%" }}>
-            <Text>{label}</Text>
+        <View style={{ width: "100%", marginVertical: 7.5 }}>
+            <Text style={{ fontFamily: "EncodeSans-SemiBold", fontSize: 14 }}>{label}</Text>
             <TextInput
                 style={{ 
                     borderWidth: 1, 
                     borderRadius: 12,
                     paddingHorizontal: 12,
                     color: "#000",
+                    fontFamily: "EncodeSans-Light",
                     ...style as any 
                 }}
                 placeholderTextColor="#000"

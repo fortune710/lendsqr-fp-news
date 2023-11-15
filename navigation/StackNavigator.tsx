@@ -17,10 +17,6 @@ const StackNavigator = () => {
     const { auth: { currentUser } } = useAuth();
     const { analytics } = useAnalytics();
 
-    useEffect(() => {
-        analytics.setUserId(currentUser?.uid!)
-    }, [])
-
     const getRouteName = () => {
         routeNameRef.current = navigationRef.current.getCurrentRoute().name;
     }

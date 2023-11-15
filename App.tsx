@@ -20,6 +20,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import CodePush from 'react-native-code-push';
 import useRemoteConfig from './hooks/useRemoteConfig';
+import useAnalytics from './hooks/useAnalytics';
 
 const queryClient = new QueryClient();
 
@@ -31,9 +32,12 @@ function App(): JSX.Element {
   };
 
   const { setDefaults } = useRemoteConfig();
+  const { analytics } = useAnalytics()
 
   useEffect(() => {
     setDefaults()
+
+    analytics.setUserId(null)
   }, [])
 
   return (

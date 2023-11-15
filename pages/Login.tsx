@@ -1,4 +1,4 @@
-import { Pressable, TextInput, View } from "react-native"
+import { Pressable, StyleSheet, TextInput, View } from "react-native"
 import Page from "../components/Page"
 import { ScreenProps } from "../types";
 import { Button, Icon, Text } from "@rneui/themed";
@@ -19,15 +19,20 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
         <Page>
             <AuthForm type="login"/>
 
-            <Button testID="googleSignInButton" onPress={signUpWithGoogle}>
+            <Button 
+                buttonStyle={styles.button}
+                titleStyle={styles.noAccountText} 
+                testID="googleSignInButton" 
+                onPress={signUpWithGoogle}
+            >
                 Sign In with Google
             </Button>
 
 
-            <View style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
-                <Text>Don't have an account?</Text>
+            <View style={styles.noAccount}>
+                <Text style={styles.noAccountText}>Don't have an account? </Text>
                 <Pressable onPress={() => navigation.navigate("Sign-Up")}>
-                    <Text>Sign Up</Text>
+                    <Text style={styles.noAccountText}>Sign Up</Text>
                 </Pressable>
             </View>
 
@@ -35,4 +40,22 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
     )
 }
 
-export default Login
+const styles = StyleSheet.create({
+    noAccountText: {
+        fontFamily: "EncodeSans-SemiBold",
+        fontSize: 14
+    },
+    button: {
+        borderRadius: 12,
+        height: 50
+    },
+    noAccount: { 
+        display: "flex", 
+        alignItems: "center", 
+        flexDirection: "row", 
+        justifyContent: "center", 
+        marginVertical: 20
+    }
+})
+
+export default Login;
