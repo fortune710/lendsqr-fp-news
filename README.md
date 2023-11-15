@@ -1,6 +1,9 @@
 ## lendsqr-fp-news
 This is an assesment for the Mobile Engineer Position at Lendsqr. A simple application to fetch and view news articles.
 
+## Finished Product
+To download the app, click here [https://drive.google.com/file/d/1D1EDfdCaon3YjOrPxBfxsEnTJp2mp7Jb/view?usp=drive_link] (https://drive.google.com/file/d/1D1EDfdCaon3YjOrPxBfxsEnTJp2mp7Jb/view?usp=drive_link)
+
 
 ## Implementation Steps
 1. Created a new React Native App usign the React Native CLI with the command `npx react-native init lendsqr`
