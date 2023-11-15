@@ -2,7 +2,7 @@
 This is an assesment for the Mobile Engineer Position at Lendsqr. A simple application to fetch and view news articles.
 
 ## Finished Product
-To download the app, click here [https://drive.google.com/file/d/1D1EDfdCaon3YjOrPxBfxsEnTJp2mp7Jb/view?usp=drive_link] (https://drive.google.com/file/d/1D1EDfdCaon3YjOrPxBfxsEnTJp2mp7Jb/view?usp=drive_link)
+To download the app, click here [https://appdistribution.firebase.dev/i/350bdfd03efb43c7] (https://appdistribution.firebase.dev/i/350bdfd03efb43c7)
 
 
 ## Implementation Steps
