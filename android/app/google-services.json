@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "394802504165-ksmkfh9r7mv40gmf9g245nt84a24i1hi.apps.googleusercontent.com",
+          "client_id": "394802504165-8i2nd1hv29se7go1mrkftoop9sr2t7gc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.lendsqr",
-            "certificate_hash": "847807cf218419dba2f9835c2030c8c52f463db0"
+            "certificate_hash": "d067c55737eb4934dd4ee0eefa3cc297249a5983"
           }
         },
         {
