@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NewsDetails from "../pages/NewsDetails";
 import useAuth from "../hooks/useAuth";
-import useAnalytics from "../hooks/useAnalytics";
+//import useAnalytics from "../hooks/useAnalytics";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +15,8 @@ const StackNavigator = () => {
     const routeNameRef = React.useRef();
     const navigationRef = React.useRef<any>();
     const { auth: { currentUser } } = useAuth();
+
+    /*
     const { analytics } = useAnalytics();
 
     const getRouteName = () => {
@@ -32,13 +34,13 @@ const StackNavigator = () => {
           });
         }
         routeNameRef.current = currentRouteName;
-    }
+    }*/
 
     return (
         <NavigationContainer
             ref={navigationRef}
-            onReady={getRouteName}
-            onStateChange={checkScreenChange}
+            //onReady={getRouteName}
+            //onStateChange={checkScreenChange}
         >
             <Stack.Navigator
                 screenOptions={{ headerShown: false }}

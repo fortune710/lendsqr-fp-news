@@ -24,13 +24,23 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     }
 
     const signUpWithEmail = async () => {
-        await auth.createUserWithEmailAndPassword(email, password)
+        await auth.createUserWithEmailAndPassword(email, password);
+        await auth.currentUser?.updateProfile({
+            displayName: name,
+            photoURL: `https://api.dicebear.com/7.x/adventurer-neutral/pngg?seed=${name}`
+        })
         return navigation.navigate("News-Listing")
     }
 
     if (type === "sign-up") {
         return (
-            <View>
+            <View style={styles.form}>
+                <Input
+                    label="Full Name"
+                    placeholder="Enter you full name"
+                    onChangeText={(text) => setName(text)}
+                />
+
                 <Input
                     label="Email"
                     placeholder="Enter you email"
@@ -97,6 +107,7 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 12,
         height: 50,
+        marginTop: 12,
         backgroundColor: "#121212"
     },
     noAccount: { 

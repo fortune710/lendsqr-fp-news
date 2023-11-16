@@ -1,12 +1,12 @@
 import auth from "@react-native-firebase/auth"
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import useCrashlytics from "./useCrashlytics";
-import useAnalytics from "./useAnalytics";
+//import useAnalytics from "./useAnalytics";
 import { Alert } from "react-native";
 
 const useAuth = () => {
     const crashlytics = useCrashlytics();
-    const { analytics } = useAnalytics();
+    //const { analytics } = useAnalytics();
 
     const emailAndPasswordSignUp = async (email: string, password: string) => {
         const { user } = await auth().createUserWithEmailAndPassword(email, password);

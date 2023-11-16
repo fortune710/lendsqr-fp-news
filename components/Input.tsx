@@ -16,6 +16,7 @@ const Input: React.FC<InputProps> = ({ style, label, ...props }) => {
                     borderWidth: 1, 
                     borderRadius: 12,
                     paddingHorizontal: 12,
+                    height: 50,
                     color: "#000",
                     fontFamily: "EncodeSans-Light",
                     ...style as any 

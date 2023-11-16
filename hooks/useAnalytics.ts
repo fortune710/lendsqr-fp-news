@@ -1,8 +1,8 @@
-import analytics from "@react-native-firebase/analytics"
+//import analytics from "@react-native-firebase/analytics"
 
 const useAnalytics = () => {
     return {
-        analytics: analytics()
+        //analytics: analytics()
     }
 }
 

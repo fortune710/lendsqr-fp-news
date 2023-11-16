@@ -29,12 +29,9 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
             </Button>
 
 
-            <View style={styles.noAccount}>
-                <Text style={styles.noAccountText}>Don't have an account? </Text>
-                <Pressable onPress={() => navigation.navigate("Sign-Up")}>
-                    <Text style={styles.noAccountText}>Sign Up</Text>
-                </Pressable>
-            </View>
+            <Pressable onPress={() => navigation.navigate("Sign-Up")} style={styles.noAccount}>
+                <Text style={styles.noAccountText}>Don't have an account? Sign Up</Text>
+            </Pressable>
 
         </Page>
     )
